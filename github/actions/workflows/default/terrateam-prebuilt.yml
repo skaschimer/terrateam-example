@@ -10,13 +10,17 @@ on:
       environment:
         description: 'Environment in which to run the action'
         type: environment
+      runs_on:
+        description: 'runs-on configuration'
+        type: string
+        default: ubuntu-latest
 
 jobs:
   terrateam:
     permissions:
       id-token: write
       contents: read
-    runs-on: ubuntu-latest
+    runs-on: ${{ fromJSON(github.event.inputs.runs_on) }}
     timeout-minutes: 1440
     name: Terrateam Action
     environment: '${{ github.event.inputs.environment }}'
