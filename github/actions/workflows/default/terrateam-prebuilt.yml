@@ -1,7 +1,17 @@
+##########################################################################
+# DO NOT MODIFY
+#
+# THIS FILE SHOULD LIVE IN .github/workflows/terrateam.yml
+#
+# Looking for the Terrateam configuration file? .terrateam/config.yml.
+#
+# See https://terrateam.io/docs
+##########################################################################
 name: 'Terrateam Workflow'
 on:
   workflow_dispatch:
     inputs:
+      # The work-token and api-base-url are automatically passed in by the Terrateam backend
       work-token:
         description: 'Work Token'
         required: true
@@ -13,8 +23,7 @@ on:
       runs_on:
         description: 'runs-on configuration'
         type: string
-        default: ubuntu-latest
-
+        default: '"ubuntu-latest"'
 jobs:
   terrateam:
     permissions:
@@ -27,6 +36,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run Terrateam Action
+        id: terrateam
         uses: docker://ghcr.io/terrateamio/action:v1
         with:
           args: >
